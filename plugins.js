@@ -129,6 +129,15 @@ var plugins = [
     path: config => 'trader/trader.js',
   },
   {
+    name: 'MultiTrader',
+    description: 'Follows the advice and create real orders.',
+    slug: 'multitrader',
+    async: true,
+    modes: ['realtime'],
+    emits: ['portfolioUpdate', 'trade'],
+    path: config => 'multiTrader/multiTrader.js',
+  },
+  {
     name: 'Paper Trader',
     description: 'Paper trader that simulates fake trades.',
     slug: 'paperTrader',
@@ -136,6 +145,15 @@ var plugins = [
     modes: ['realtime', 'backtest'],
     emits: ['portfolioUpdate', 'trade'],
     path: config => 'paperTrader/paperTrader.js',
+  },
+  {
+    name: 'Multi Paper Trader',
+    description: 'Multi Paper trader that simulates fake trades.',
+    slug: 'multiPaperTrader',
+    async: false,
+    modes: ['realtime', 'backtest'],
+    emits: ['portfolioUpdate', 'trade'],
+    path: config => 'multiPaperTrader/multiPaperTrader.js',
   },
   {
     name: 'Performance Analyzer',
@@ -164,13 +182,6 @@ var plugins = [
     modes: ['realtime']
   },
   {
-    name: 'Kodi',
-    description: 'Sends advice to Kodi.',
-    slug: 'kodi',
-    async: false,
-    modes: ['realtime']
-  },
-  {
     name: 'Twitter',
     description: 'Sends trades to twitter.',
     slug: 'twitter',
@@ -186,7 +197,7 @@ var plugins = [
   },
   {
     name: 'IFTTT',
-    description: 'Sends trades to IFTTT webhook.',
+    description: 'Sends trades to IFTTTT webhook.',
     slug: 'ifttt',
     async: false,
     modes: ['realtime']

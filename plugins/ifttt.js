@@ -70,7 +70,7 @@ IFTTT.prototype.send = function(content) {
     .send({value1: content})
     .end(function(err, res){
       if(err || !res){
-        log.error('IFTTT ERROR:', error)
+        log.error('IFTTT ERROR:', err)
       }else{
         log.info('IFTTT Message Sent')
       }

@@ -20,12 +20,12 @@ var subscriptions = [
     handler: 'processAdvice'
   },
   {
-    emitter: ['trader', 'paperTrader'],
+    emitter: ['trader', 'paperTrader', 'multiPaperTrader'],
     event: 'trade',
     handler: 'processTrade'
   },
   {
-    emitter: ['trader', 'paperTrader'],
+    emitter: ['trader', 'paperTrader', 'multiPaperTrader'],
     event: 'portfolioUpdate',
     handler: 'processPortfolioUpdate'
   },

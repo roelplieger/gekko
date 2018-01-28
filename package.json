@@ -1,6 +1,6 @@
 {
   "name": "gekko",
-  "version": "0.5.12",
+  "version": "0.5.10",
   "description": "A bitcoin trading bot for auto trading at various exchanges",
   "keywords": [
     "trading",
@@ -17,7 +17,6 @@
   "dependencies": {
     "@slack/client": "^3.10.0",
     "async": "2.1.2",
-    "binance": "^1.3.0",
     "bitcoin-co-id": "0.0.1",
     "bitexthai": "^0.1.0",
     "bitfinex-api-node": "^1.2.0",
@@ -27,7 +26,6 @@
     "btc-markets": "0.0.10",
     "cexio": "0.0.x",
     "co-fs": "^1.2.0",
-    "coinfalcon": "^1.0.3",
     "commander": "^2.9.0",
     "gdax": "^0.4.2",
     "gekko": "0.0.9",
@@ -42,7 +40,8 @@
     "kraken-api-es5": "^1.0.0",
     "lakebtc_nodejs": "0.1.x",
     "lodash": "2.x",
-    "moment": "2.19.3",
+    "moment": "2.4.x",
+    "mongojs": "^2.4.1",
     "node-wex": "^1.0.3",
     "node.bittrex.api": "^0.4.3",
     "okcoin-china": "0.0.7",
@@ -51,14 +50,16 @@
     "promisify-node": "^0.4.0",
     "prompt-lite": "0.1.1",
     "pushbullet": "1.4.3",
-    "quadrigacx": "0.0.7",
     "relieve": "^2.1.3",
     "retry": "^0.10.1",
-    "semver": "5.4.1",
+    "semver": "2.2.1",
     "sqlite3": "^3.1.13",
     "stats-lite": "^2.0.4",
+    "superagent": "^3.8.1",
+    "talib": "^1.0.2",
     "tiny-promisify": "^0.1.1",
     "toml": "^2.3.0",
+    "tulind": "^0.8.7",
     "twitter": "^1.7.1",
     "zaif.jp": "^0.1.4"
   },
@@ -66,8 +67,6 @@
     "chai": "^2.0.0",
     "mocha": "^2.1.1",
     "proxyquire": "^1.7.10",
-    "request": "^2.83.0",
-    "request-promise": "^4.2.2",
     "sinon": "^1.12.2"
   },
   "engines": {
