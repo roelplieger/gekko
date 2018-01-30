@@ -11,9 +11,9 @@
 			"program": "${workspaceFolder}/gekko.js",
 			"args": [
 				"--config",
-				"config_xrp.js",
+				"config_str.js",
 				">>",
-				"/home/roel/gekko_roel/trade_xrp.log"
+				"/home/roel/gekko_roel/trade_str.log"
 			]
 		}
 	]

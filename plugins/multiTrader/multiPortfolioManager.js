@@ -162,7 +162,7 @@ Manager.prototype.trade = function (what, retry) {
     var amount, price;
 
     if (what === 'BUY') {
-      this.multiTradeService.withDraw(this.asset, this.setPortfolio).then(function (balance) {
+      this.multiTradeService.withdraw(this.asset, this.setPortfolio).then(function (balance) {
         let exchangeBalance = this.getBalance(this.currency);
         amount = Math.min(exchangeBalance, balance) / this.ticker.ask;
         if (amount > 0) {
