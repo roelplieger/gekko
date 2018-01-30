@@ -47,3 +47,4 @@ volumes
 config.js
 config-*.js
 SECRET-api-keys.json
+package-lock\.json
