@@ -396,10 +396,10 @@ config.slack = {
 }
 
 config.ifttt = {
-  enabled: false,
-  eventName: 'gekko_test',
+  enabled: true,
+  eventName: 'gekko_trade',
   makerKey: 'crGyrAaBfn-9QlmvVvDx_w',
-  muteSoft: false,
+  muteSoft: true,
   sendMessageOnStart: true
 }
 
