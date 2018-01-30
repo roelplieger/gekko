@@ -46,5 +46,7 @@ TMP_*
 volumes
 config.js
 config-*.js
+private-*.js
+private-*.toml
 SECRET-api-keys.json
 package-lock\.json
