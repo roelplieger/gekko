@@ -75,7 +75,15 @@ MultiPaperTrader.prototype.extractFee = function (amount) {
 // with more BTC than we started with, this function
 // calculates Gekko's profit in %.
 MultiPaperTrader.prototype.updatePosition = function (advice) {
+
   let self = this;
+
+  let setPortfolio = function (callback) {
+    callback([
+      { name: self.asset, amount: self.portfolio.asset },
+      { name: self.currency, amount: self.portfolio.currency }
+    ]);
+  }
 
   let promise = new Promise(function (resolve, reject) {
     let what = advice.recommendation;
@@ -84,7 +92,7 @@ MultiPaperTrader.prototype.updatePosition = function (advice) {
     // virtually trade all {currency} to {asset}
     // at the current price (minus fees)
     if (what === 'long') {
-      self.multiTradeService.withdraw(self.asset).then(function (balance) {
+      self.multiTradeService.withdraw(self.asset, setPortfolio).then(function (balance) {
         self.portfolio.asset += self.extractFee(self.portfolio.currency / price);
         self.portfolio.currency = 0;
         self.trades++;
@@ -97,7 +105,7 @@ MultiPaperTrader.prototype.updatePosition = function (advice) {
     // at the current price (minus fees)
     else if (what === 'short') {
       let deposit = self.extractFee(self.portfolio.asset * price);
-      self.multiTradeService.deposit(self.asset, deposit).then(function () {
+      self.multiTradeService.deposit(self.asset, setPortfolio).then(function () {
         self.portfolio.currency += deposit;
         self.portfolio.asset = 0;
         self.trades++;

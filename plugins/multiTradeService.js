@@ -82,9 +82,9 @@ var MultiTraderService = function (startBalance) {
     }
 
     /**
-     * Get the balance available for an asset.
+     * Get the balance available for an asset; setPortfolio updates the current portfolio after the lock is set.
      */
-    var getBalance = function (db, assetId) {
+    var getBalance = function (db, assetId, setPortfolio) {
         var promise = new Promise(function (resolve, reject) {
             var retries = 5;
 
@@ -120,14 +120,26 @@ var MultiTraderService = function (startBalance) {
                                     if (err) {
                                         retries = 0;
                                     } else {
-                                        if (data.assetLock == assetId) {
-                                            retries = 0;
-                                            resolve(data.balance);
-                                        } else {
-                                            // another asset locked the balance
-                                            retries--;
-                                            setTimeout(getLockedBalance, 50);
-                                        }
+                                        // reread the record and check if we own the lock
+                                        db.balance.findOne({
+                                            currency: 'USDT'
+                                        }, function (err, data) {
+                                            if (err) {
+                                                retries = 0;
+                                            } else {
+                                                if (data.assetLock == assetId) {
+                                                    retries = 0;
+                                                    setPortfolio(function (portfolio) {
+                                                        // portfolio is an array with two objects, second has currency balance
+                                                        resolve(portfolio[1].amount);
+                                                    });
+                                                } else {
+                                                    // another asset locked the balance
+                                                    retries--;
+                                                    setTimeout(getLockedBalance, 50);
+                                                }
+                                            }
+                                        });
                                     }
                                 });
                             }
@@ -160,7 +172,7 @@ var MultiTraderService = function (startBalance) {
     /**
      * Get the maximum amount of currency to buy an asset
      */
-    var withdraw = function (assetId) {
+    var withdraw = function (assetId, setPortfolio) {
         let self = this;
 
         var promise = new Promise(function (resolve, reject) {
@@ -169,7 +181,7 @@ var MultiTraderService = function (startBalance) {
             } else {
                 var db = getDB();
                 // first get the current balance and lock it
-                getBalance(db, assetId).then(function (balance) {
+                getBalance(db, assetId, setPortfolio).then(function (balance) {
                     // get all assets
                     db.assets.find(function (err, data) {
                         if (err) {
@@ -231,9 +243,9 @@ var MultiTraderService = function (startBalance) {
     }
 
     /**
-     * Deposit amount of currency after selling an asset
+     * Deposit an asset, set the asset's amount to zero
      */
-    var deposit = function (assetId, amount) {
+    var deposit = function (assetId, setPortfolio) {
         let self = this;
 
         var promise = new Promise(function (resolve, reject) {
@@ -243,12 +255,12 @@ var MultiTraderService = function (startBalance) {
                 // update total balance and reset amount of asset to zero
                 var db = getDB();
                 // lock the balance before updating
-                getBalance(db, assetId).then(function (balance) {
+                getBalance(db, assetId, setPortfolio).then(function (balance) {
                     db.balance.update({
                         currency: 'USDT'
                     }, {
-                            $inc: {
-                                balance: amount
+                            $set: {
+                                balance: balance
                             }
                         });
                     db.assets.update({
@@ -260,9 +272,9 @@ var MultiTraderService = function (startBalance) {
                         });
                     // release the lock
                     unlockBalance(db);
-                    log(db, 'deposit', assetId, amount);
+                    log(db, 'deposit', assetId, balance);
                     db.close();
-                    resolve(balance + amount);
+                    resolve(balance);
                 }, function (err) {
                     db.close();
                     reject(err);

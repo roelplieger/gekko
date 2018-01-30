@@ -107,7 +107,7 @@ Manager.prototype.setPortfolio = function (callback) {
     this.portfolio = portfolio;
 
     if (_.isFunction(callback))
-      callback();
+      callback(portfolio);
 
   }.bind(this);
 
@@ -162,9 +162,7 @@ Manager.prototype.trade = function (what, retry) {
     var amount, price;
 
     if (what === 'BUY') {
-      this.multiTradeService.withDraw(this.asset).then(function (balance) {
-        // keep the balance for canceling
-        this.buyBalance = balance;
+      this.multiTradeService.withDraw(this.asset, this.setPortfolio).then(function (balance) {
         let exchangeBalance = this.getBalance(this.currency);
         amount = Math.min(exchangeBalance, balance) / this.ticker.ask;
         if (amount > 0) {
@@ -234,9 +232,6 @@ Manager.prototype.buy = function (amount, price) {
 // (amount is in asset quantity)
 Manager.prototype.sell = function (amount, price) {
 
-  // preserve for deposit
-  this.sellAmount = amount;
-
   var minimum = this.getMinimum(price);
 
   // if order to small
@@ -302,8 +297,7 @@ Manager.prototype.checkOrder = function () {
   }
 
   var handleCancelResult = function (alreadyFilled) {
-    // deposit amount that was withdrawn...
-    this.multiTradeService.deposit(this.asset, this.buyBalance).then(function () {
+    this.multiTradeService.deposit(this.asset, this.setPortfolio).then(function () {
       if (alreadyFilled)
         return;
 
@@ -361,7 +355,7 @@ Manager.prototype.relayOrder = function (done) {
     ], () => {
       const portfolio = this.convertPortfolio(this.portfolio);
 
-      this.multiTradeService.deposit(this.asset, price * this.sellAmount).then(function () {
+      this.multiTradeService.deposit(this.asset, this.setPortfolio).then(function () {
         this.emit('trade', {
           date,
           price,
