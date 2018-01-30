@@ -131,7 +131,7 @@ var plugins = [
   {
     name: 'MultiTrader',
     description: 'Follows the advice and create real orders.',
-    slug: 'multitrader',
+    slug: 'multiTrader',
     async: true,
     modes: ['realtime'],
     emits: ['portfolioUpdate', 'trade'],

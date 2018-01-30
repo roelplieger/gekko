@@ -13,7 +13,7 @@
 				"--config",
 				"config_xrp.js",
 				">>",
-				"/home/roel/gekko/trade_xrp.log"
+				"/home/roel/gekko_roel/trade_xrp.log"
 			]
 		}
 	]

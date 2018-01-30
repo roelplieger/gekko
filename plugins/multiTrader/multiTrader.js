@@ -9,7 +9,7 @@ var Manager = require('./multiPortfolioManager');
 var MultiTrader = function (next) {
   _.bindAll(this);
 
-  this.manager = new Manager(_.extend(config.trader, config.watch));
+  this.manager = new Manager(_.extend(config.multiTrader, config.watch));
   this.manager.init(next);
 
   let sendPortfolio = false;
@@ -30,11 +30,11 @@ var MultiTrader = function (next) {
 }
 
 // teach our trader events
-util.makeEventEmitter(Trader);
+util.makeEventEmitter(MultiTrader);
 
-Trader.prototype.processCandle = (candle, done) => done();
+MultiTrader.prototype.processCandle = (candle, done) => done();
 
-Trader.prototype.processAdvice = function (advice) {
+MultiTrader.prototype.processAdvice = function (advice) {
   if (advice.recommendation == 'long') {
     log.info(
       'MultiTrader',
