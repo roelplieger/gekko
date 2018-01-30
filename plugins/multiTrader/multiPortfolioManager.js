@@ -156,28 +156,29 @@ Manager.prototype.trade = function (what, retry) {
   if (!retry && _.size(this.orders))
     return this.cancelLastOrder(() => this.trade(what));
 
-  this.action = what;
+  var self = this;
+  self.action = what;
 
   var act = function () {
     var amount, price;
 
     if (what === 'BUY') {
-      this.multiTradeService.withdraw(this.asset, this.setPortfolio).then(function (balance) {
-        let exchangeBalance = this.getBalance(this.currency);
-        amount = Math.min(exchangeBalance, balance) / this.ticker.ask;
+      self.multiTradeService.withdraw(self.asset, self.setPortfolio).then(function (balance) {
+        let exchangeBalance = self.getBalance(self.currency);
+        amount = Math.min(exchangeBalance, balance) / self.ticker.ask;
         if (amount > 0) {
-          price = this.ticker.bid;
-          this.buy(amount, price);
+          price = self.ticker.bid;
+          self.buy(amount, price);
         }
       }, function (error) {
-        console.log('error buying ' + this.asset + ': ' + error);
+        console.log('error buying ' + self.asset + ': ' + error);
       });
     } else if (what === 'SELL') {
 
-      amount = this.getBalance(this.asset) - this.keepAsset;
+      amount = self.getBalance(self.asset) - self.keepAsset;
       if (amount > 0) {
-        price = this.ticker.ask;
-        this.sell(amount, price);
+        price = self.ticker.ask;
+        self.sell(amount, price);
       }
     }
   };
