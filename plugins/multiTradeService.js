@@ -130,8 +130,8 @@ var MultiTraderService = function (startBalance) {
                                                 if (data.assetLock == assetId) {
                                                     retries = 0;
                                                     setPortfolio(function (portfolio) {
-                                                        // portfolio is an array with two objects, second has currency balance
-                                                        resolve(portfolio[1].amount);
+                                                        // portfolio is an array with two objects, first has currency balance
+                                                        resolve(portfolio[0].amount);
                                                     });
                                                 } else {
                                                     // another asset locked the balance
