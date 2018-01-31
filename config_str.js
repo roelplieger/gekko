@@ -32,7 +32,7 @@ config.watch = {
 
 config.tradingAdvisor = {
   enabled: true,
-  method: 'RSI',
+  method: 'myRSI',
   candleSize: 3,
   historySize: 3,
   adapter: 'sqlite',
@@ -110,6 +110,18 @@ config.varPPO = {
 
 // RSI settings:
 config.RSI = {
+  interval: 14,
+  thresholds: {
+    low: 50,
+    high: 70,
+    // How many candle intervals should a trend persist
+    // before we consider it real?
+    persistence: 1
+  }
+};
+
+// myRSI settings:
+config.myRSI = {
   interval: 14,
   thresholds: {
     low: 50,
