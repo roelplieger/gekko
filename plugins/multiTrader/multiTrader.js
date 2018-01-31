@@ -39,14 +39,14 @@ MultiTrader.prototype.processAdvice = function (advice) {
     log.info(
       'MultiTrader',
       'Received advice to go long.',
-      'Buying ', config.trader.asset
+      'Buying ', config.multiTrader.asset
     );
     this.manager.trade('BUY');
   } else if (advice.recommendation == 'short') {
     log.info(
       'MultiTrader',
       'Received advice to go short.',
-      'Selling ', config.trader.asset
+      'Selling ', config.multiTrader.asset
     );
     this.manager.trade('SELL');
   }
