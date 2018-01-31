@@ -1,7 +1,6 @@
 # log files
 t1*.txt
 t2*.txt
-*trade.log
 
 # Numerous always-ignore extensions
 *.diff
