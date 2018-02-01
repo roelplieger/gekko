@@ -9,7 +9,7 @@ json="{ \"value1\": \"\\n"$diff"\" }"
 #echo "$json"
 
 if [ ! -z "$diff" ]
-then curl -d "$json" -H "Content-Type: application/json" -X POST https://maker.ifttt.com/trigger/gekko_doge/with/key/crGyrAaBfn-9QlmvVvDx_w
+then curl -d "$json" -H "Content-Type: application/json" -X POST https://maker.ifttt.com/trigger/gekko_trade/with/key/crGyrAaBfn-9QlmvVvDx_w
 fi
 
 cp t1_str.txt t2_str.txt
