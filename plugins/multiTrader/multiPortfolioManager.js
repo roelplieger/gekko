@@ -298,30 +298,31 @@ Manager.prototype.checkOrder = function () {
   }
 
   var handleCancelResult = function (alreadyFilled) {
-    this.multiTradeService.deposit(this.asset, this.setPortfolio).then(function () {
+    var self = this;
+    self.multiTradeService.deposit(self.asset, self.setPortfolio).then(function () {
       if (alreadyFilled)
         return;
 
-      if (this.exchangeMeta.forceReorderDelay) {
+      if (self.exchangeMeta.forceReorderDelay) {
         //We need to wait in case a canceled order has already reduced the amount
         var wait = 10;
-        log.debug(`Waiting ${wait} seconds before starting a new trade on ${this.exchangeMeta.name}!`);
+        log.debug(`Waiting ${wait} seconds before starting a new trade on ${self.exchangeMeta.name}!`);
 
         setTimeout(
-          () => this.trade(this.action, true),
+          () => self.trade(self.action, true),
           +moment.duration(wait, 'seconds')
         );
         return;
       }
 
-      this.trade(this.action, true);
+      self.trade(self.action, true);
 
     }, function (error) {
-      console.log('error handleCancelResult for ' + this.asset + ': ' + error);
+      console.log('error handleCancelResult for ' + self.asset + ': ' + error);
     });
   }
 
-  this.exchange.checkOrder(_.last(this.orders), _.bind(handleCheckResult, this));
+  self.exchange.checkOrder(_.last(this.orders), _.bind(handleCheckResult, this));
 }
 
 // convert into the portfolio expected by the performanceAnalyzer
