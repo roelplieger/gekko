@@ -357,8 +357,9 @@ Manager.prototype.relayOrder = function (done) {
     ], () => {
       const portfolio = this.convertPortfolio(this.portfolio);
 
-      this.multiTradeService.deposit(this.asset, this.setPortfolio).then(function () {
-        this.emit('trade', {
+      var self = this;
+      self.multiTradeService.deposit(self.asset, self.setPortfolio).then(function () {
+        self.emit('trade', {
           date,
           price,
           portfolio: portfolio,
@@ -368,7 +369,7 @@ Manager.prototype.relayOrder = function (done) {
           // this is in uppercase, everywhere else
           // (UI, performanceAnalyzer, etc. it is
           // lowercase)
-          action: this.action.toLowerCase()
+          action: self.action.toLowerCase()
         });
 
         this.orders = [];
