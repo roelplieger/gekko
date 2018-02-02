@@ -168,7 +168,9 @@ Manager.prototype.trade = function (what, retry) {
         amount = Math.min(exchangeBalance, balance) / self.ticker.ask;
         if (amount > 0) {
           price = self.ticker.bid;
-          self.buy(amount, price);
+          // preserve scope for buy
+          var myBuy = _.bind(self.buy, self);
+          myBuy(amount, price);
         }
       }, function (error) {
         console.log('error buying ' + self.asset + ': ' + error);
@@ -177,7 +179,9 @@ Manager.prototype.trade = function (what, retry) {
       amount = self.getBalance(self.asset) - self.keepAsset;
       if (amount > 0) {
         price = self.ticker.ask;
-        self.sell(amount, price);
+        // preserve scope for sell
+        var mySell = _.bind(self.sell, self);
+        mySell(amount, price);
       }
     }
   };
@@ -371,12 +375,12 @@ Manager.prototype.relayOrder = function (done) {
           action: self.action.toLowerCase()
         });
 
-        this.orders = [];
+        self.orders = [];
 
         if (_.isFunction(done))
           done();
       }, function (error) {
-        console.log('error relaying order for ' + this.asset + ': ' + error);
+        console.log('error relaying order for ' + self.asset + ': ' + error);
       });
     });
 
