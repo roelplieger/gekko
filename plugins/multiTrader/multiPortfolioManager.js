@@ -156,10 +156,10 @@ Manager.prototype.trade = function (what, retry) {
   if (!retry && _.size(this.orders))
     return this.cancelLastOrder(() => this.trade(what));
 
-  var self = this;
-  self.action = what;
+  this.action = what;
 
   var act = function () {
+    var self = this;
     var amount, price;
 
     if (what === 'BUY') {
@@ -174,7 +174,6 @@ Manager.prototype.trade = function (what, retry) {
         console.log('error buying ' + self.asset + ': ' + error);
       });
     } else if (what === 'SELL') {
-
       amount = self.getBalance(self.asset) - self.keepAsset;
       if (amount > 0) {
         price = self.ticker.ask;
