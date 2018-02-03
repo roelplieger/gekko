@@ -287,6 +287,8 @@ Manager.prototype.cancelLastOrder = function (done) {
 // check whether the order got fully filled
 // if it is not: cancel & instantiate a new order
 Manager.prototype.checkOrder = function () {
+  var self = this;
+
   var handleCheckResult = function (err, filled) {
     if (!filled) {
       log.info(this.action, 'order was not (fully) filled, cancelling and creating new order');
@@ -301,7 +303,6 @@ Manager.prototype.checkOrder = function () {
   }
 
   var handleCancelResult = function (alreadyFilled) {
-    var self = this;
     self.multiTradeService.deposit(self.asset, self.setPortfolio).then(function () {
       if (alreadyFilled)
         return;
