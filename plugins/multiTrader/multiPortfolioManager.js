@@ -362,7 +362,7 @@ Manager.prototype.relayOrder = function (done) {
       const portfolio = this.convertPortfolio(this.portfolio);
 
       var self = this;
-      self.multiTradeService.deposit(self.asset, self.setPortfolio).then(function () {
+      var doRelayOrder = function () {
         self.emit('trade', {
           date,
           price,
@@ -380,9 +380,17 @@ Manager.prototype.relayOrder = function (done) {
 
         if (_.isFunction(done))
           done();
-      }, function (error) {
-        console.log('error relaying order for ' + self.asset + ': ' + error);
-      });
+      }
+
+      if (self.action == 'SELL') {
+        self.multiTradeService.deposit(self.asset, self.setPortfolio).then(function () {
+          doRelayOrder();
+        }, function (error) {
+          console.log('error relaying order for ' + self.asset + ': ' + error);
+        });
+      } else {
+        doRelayOrder();
+      }
     });
 
   }
