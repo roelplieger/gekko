@@ -1,1 +1,1 @@
-XRP,STR
+XRP,STR,ETH

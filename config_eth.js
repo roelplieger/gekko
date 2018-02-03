@@ -32,8 +32,8 @@ config.watch = {
 
 config.tradingAdvisor = {
   enabled: true,
-  method: 'RSI',
-  candleSize: 5,
+  method: 'myRSI',
+  candleSize: 3,
   historySize: 3,
   adapter: 'sqlite',
   talib: {
@@ -110,6 +110,18 @@ config.varPPO = {
 
 // RSI settings:
 config.RSI = {
+  interval: 14,
+  thresholds: {
+    low: 50,
+    high: 70,
+    // How many candle intervals should a trend persist
+    // before we consider it real?
+    persistence: 1
+  }
+};
+
+// myRSI settings:
+config.myRSI = {
   interval: 14,
   thresholds: {
     low: 50,
@@ -212,7 +224,7 @@ config.paperTrader = {
 }
 
 config.multiPaperTrader = {
-  enabled: true,
+  enabled: false,
   // report the profit in the currency or the asset?
   reportInCurrency: true,
   // start balance, on what the current balance is compared with
@@ -245,8 +257,8 @@ config.trader = {
   passphrase: '' // GDAX, requires a passphrase.
 }
 
-config.Multitrader = {
-  enabled: false,
+config.multiTrader = {
+  enabled: true,
   key: 'IPKXHSJQ-RQ05K6AP-UUFHSD17-C8RZW384',
   secret: '923b23c9e5bb301a2a7bfd985a8586414be3e42ca3acb03165c77fe407b70df5af6f5d60b6d9b9da038641675a17a19a67f452122856ad4e8cc0c928a1429200',
   username: '', // your username, only required for specific exchanges.
@@ -396,10 +408,10 @@ config.slack = {
 }
 
 config.ifttt = {
-  enabled: false,
-  eventName: 'gekko_test',
+  enabled: true,
+  eventName: 'gekko_trade',
   makerKey: 'crGyrAaBfn-9QlmvVvDx_w',
-  muteSoft: false,
+  muteSoft: true,
   sendMessageOnStart: true
 }
 
