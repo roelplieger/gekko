@@ -3,7 +3,7 @@ cd /home/roel/gekko_roel
 cp ethtrade.log t1_eth.txt
 
 
-diff=$(diff t1_eth.txt t2_eth.txt | grep -E 'BUY|SELL|PROFIT|price|rsi' | sed ':a;N;$!ba;s/\n/\\n/g' | sed 's/< //g' | sed 's/\t\t //g' | sed 's/\t/\\t/g' | sed 's/(INFO)://g' | sed 's/(DEBUG)://g')
+diff=$(diff t1_eth.txt t2_eth.txt | grep -E 'BUY|SELL|PROFIT' | sed ':a;N;$!ba;s/\n/\\n/g' | sed 's/< //g' | sed 's/\t\t //g' | sed 's/\t/\\t/g' | sed 's/(INFO)://g' | sed 's/(DEBUG)://g')
 json="{ \"value1\": \"\\nETH:\\n"$diff"\" }"
 
 #echo "$json"

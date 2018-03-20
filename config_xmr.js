@@ -33,8 +33,11 @@ config.watch = {
 config.tradingAdvisor = {
   enabled: true,
   method: 'myRSI',
-  candleSize: 3,
+  candleSize: 25,
   historySize: 3,
+//  method: 'PPO',
+//  candleSize: 120,
+//  historySize: 10,
   adapter: 'sqlite',
   talib: {
     enabled: false,
@@ -259,8 +262,8 @@ config.trader = {
 
 config.multiTrader = {
   enabled: true,
-  key: 'IPKXHSJQ-RQ05K6AP-UUFHSD17-C8RZW384',
-  secret: '923b23c9e5bb301a2a7bfd985a8586414be3e42ca3acb03165c77fe407b70df5af6f5d60b6d9b9da038641675a17a19a67f452122856ad4e8cc0c928a1429200',
+  key: 'PGWH7KHP-UP004PK1-AMHDYH2D-XL5STFZ8',
+  secret: 'f79ed5dee3fcac44d86a670dbfb1655f7ce5c5c7c5dfa2d8a0918e17ef0ea38e92401dcf00ec2fbadde2437732c8624454a0909ffa7752b2a2ebf7b287e5a2b4',
   username: '', // your username, only required for specific exchanges.
   passphrase: '' // GDAX, requires a passphrase.
 }
