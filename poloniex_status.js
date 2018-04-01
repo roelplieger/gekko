@@ -7,7 +7,7 @@ var secret = 'f79ed5dee3fcac44d86a670dbfb1655f7ce5c5c7c5dfa2d8a0918e17ef0ea38e92
 
 var poloniex = new Poloniex(key, secret);
 
-fs.readFile('multiTradeAssets.txt', 'utf8', function (err, data) {
+fs.readFile('mulitTradeAssets.txt', 'utf8', function (err, data) {
   if (err) {
     console.log(err);
     return;
@@ -15,6 +15,9 @@ fs.readFile('multiTradeAssets.txt', 'utf8', function (err, data) {
 
   var msg = '\n';
   var assets = data.replace('\n', ',').split(',');
+  if (!assets[assets.length - 1]) {
+    assets = assets.splice(0, assets.length - 1);
+  }
 
   var sendIfttt = function (msg) {
     var json = "{ \"value1\": \"" + msg.replace(/\n/g, '\\n') + "\" }";
@@ -73,7 +76,7 @@ fs.readFile('multiTradeAssets.txt', 'utf8', function (err, data) {
             getBalance();
           } else {
             msg += 'total USDT: ' + usdts + '\n';
-            // console.log(msg);
+            //console.log(msg);
             sendIfttt(msg);
           }
         });
