@@ -3,7 +3,7 @@ t1*.txt
 t2*.txt
 
 # config files
-config_*.js
+config*.js
 
 # Numerous always-ignore extensions
 *.diff
