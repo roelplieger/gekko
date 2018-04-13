@@ -2,8 +2,9 @@ var fs = require('fs');
 var https = require('https');
 var Poloniex = require("poloniex.js");
 
-var key = 'PGWH7KHP-UP004PK1-AMHDYH2D-XL5STFZ8';
-var secret = 'f79ed5dee3fcac44d86a670dbfb1655f7ce5c5c7c5dfa2d8a0918e17ef0ea38e92401dcf00ec2fbadde2437732c8624454a0909ffa7752b2a2ebf7b287e5a2b4';
+// TODO: configure key in config file
+var key = 'your key';
+var secret = 'your secret';
 
 var poloniex = new Poloniex(key, secret);
 
