@@ -35,9 +35,9 @@ config.tradingAdvisor = {
   method: 'myRSI',
   candleSize: 25,
   historySize: 3,
-//  method: 'PPO',
-//  candleSize: 120,
-//  historySize: 10,
+  //  method: 'PPO',
+  //  candleSize: 120,
+  //  historySize: 10,
   adapter: 'sqlite',
   talib: {
     enabled: false,
@@ -150,9 +150,18 @@ config.TSI = {
 
 // Ultimate Oscillator Settings
 config.UO = {
-  first: { weight: 4, period: 7 },
-  second: { weight: 2, period: 14 },
-  third: { weight: 1, period: 28 },
+  first: {
+    weight: 4,
+    period: 7
+  },
+  second: {
+    weight: 2,
+    period: 14
+  },
+  third: {
+    weight: 1,
+    period: 28
+  },
   thresholds: {
     low: 30,
     high: 70,
@@ -262,8 +271,8 @@ config.trader = {
 
 config.multiTrader = {
   enabled: true,
-  key: 'PGWH7KHP-UP004PK1-AMHDYH2D-XL5STFZ8',
-  secret: 'f79ed5dee3fcac44d86a670dbfb1655f7ce5c5c7c5dfa2d8a0918e17ef0ea38e92401dcf00ec2fbadde2437732c8624454a0909ffa7752b2a2ebf7b287e5a2b4',
+  key: 'your key',
+  secret: 'your secret',
   username: '', // your username, only required for specific exchanges.
   passphrase: '' // GDAX, requires a passphrase.
 }
@@ -284,10 +293,10 @@ config.pushover = {
 
 // want Gekko to send a mail on buy or sell advice?
 config.mailer = {
-  enabled: false,       // Send Emails if true, false to turn off
-  sendMailOnStart: true,    // Send 'Gekko starting' message if true, not if false
+  enabled: false, // Send Emails if true, false to turn off
+  sendMailOnStart: true, // Send 'Gekko starting' message if true, not if false
 
-  email: '',    // Your Gmail address
+  email: '', // Your Gmail address
   muteSoft: true, // disable advice printout if it's soft
 
   // You don't have to set your password here, if you leave it blank we will ask it
@@ -300,22 +309,22 @@ config.mailer = {
   // WARNING: If you have NOT downloaded Gekko from the github page above we CANNOT
   // guarantuee that your email address & password are safe!
 
-  password: '',       // Your Gmail Password - if not supplied Gekko will prompt on startup.
+  password: '', // Your Gmail Password - if not supplied Gekko will prompt on startup.
 
-  tag: '[GEKKO] ',      // Prefix all email subject lines with this
+  tag: '[GEKKO] ', // Prefix all email subject lines with this
 
   //       ADVANCED MAIL SETTINGS
   // you can leave those as is if you
   // just want to use Gmail
 
-  server: 'smtp.gmail.com',   // The name of YOUR outbound (SMTP) mail server.
-  smtpauth: true,     // Does SMTP server require authentication (true for Gmail)
+  server: 'smtp.gmail.com', // The name of YOUR outbound (SMTP) mail server.
+  smtpauth: true, // Does SMTP server require authentication (true for Gmail)
   // The following 3 values default to the Email (above) if left blank
-  user: '',       // Your Email server user name - usually your full Email address 'me@mydomain.com'
-  from: '',       // 'me@mydomain.com'
-  to: '',       // 'me@somedomain.com, me@someotherdomain.com'
-  ssl: true,        // Use SSL (true for Gmail)
-  port: '',       // Set if you don't want to use the default port
+  user: '', // Your Email server user name - usually your full Email address 'me@mydomain.com'
+  from: '', // 'me@mydomain.com'
+  to: '', // 'me@somedomain.com, me@someotherdomain.com'
+  ssl: true, // Use SSL (true for Gmail)
+  port: '', // Set if you don't want to use the default port
 }
 
 config.pushbullet = {
