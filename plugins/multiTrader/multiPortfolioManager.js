@@ -91,11 +91,16 @@ Manager.prototype.setPortfolio = function (callback) {
     // only include the currency/asset of this market
     const portfolio = [this.conf.currency, this.conf.asset]
       .map(name => {
-        let item = _.find(fullPortfolio, { name });
+        let item = _.find(fullPortfolio, {
+          name
+        });
 
         if (!item) {
           log.debug(`Unable to find "${name}" in portfolio provided by exchange, assuming 0.`);
-          item = { name, amount: 0 };
+          item = {
+            name,
+            amount: 0
+          };
         }
 
         return item;
@@ -142,7 +147,9 @@ Manager.prototype.setTicker = function (callback) {
 
 // return the [fund] based on the data we have in memory
 Manager.prototype.getFund = function (fund) {
-  return _.find(this.portfolio, function (f) { return f.name === fund });
+  return _.find(this.portfolio, function (f) {
+    return f.name === fund
+  });
 };
 Manager.prototype.getBalance = function (fund) {
   return this.getFund(fund).amount;
@@ -313,8 +320,7 @@ Manager.prototype.checkOrder = function () {
         log.debug(`Waiting ${wait} seconds before starting a new trade on ${self.exchangeMeta.name}!`);
 
         setTimeout(
-          () => self.trade(self.action, true),
-          +moment.duration(wait, 'seconds')
+          () => self.trade(self.action, true), +moment.duration(wait, 'seconds')
         );
         return;
       }
@@ -354,6 +360,8 @@ Manager.prototype.relayOrder = function (done) {
       price = ((price * amount) + (order.price * order.amount)) / (order.amount + amount);
       amount += +order.amount;
     });
+
+    this.multiTradeService.logTrade(this.action, this.asset, amount, price);
 
     async.series([
       this.setPortfolio,
